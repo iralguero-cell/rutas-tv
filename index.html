@@ -87,22 +87,147 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
 .meta { color: #a39dab; font-size: 2.1vmin; white-space: nowrap; }
 .ctl { background: transparent; color: #a39dab; border: 1px solid #34303c; border-radius: .6vmin; font: 600 2.1vmin Arial, sans-serif; padding: .6vmin 1.4vmin; }
 .stale { color: #f0866f; font-weight: 700; }
+
+/* Cabecera de cada diapositiva: día (Hoy / Mañana) + fecha + sección */
+.kicker { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
+.kicker > * { margin-right: 2vmin; }
+.daytag { font-weight: 900; font-style: italic; font-size: 3vmin; text-transform: uppercase; letter-spacing: .06em; line-height: 1.2; padding: .3vmin 1.8vmin; border-radius: .6vmin; border: 2px solid #f4f2f6; color: #f4f2f6; }
+.daytag.today { background: #5a287e; border-color: #5a287e; color: #ffffff; }
+.dayname { font-weight: 600; font-size: 2.8vmin; color: #f4f2f6; }
+.kicker .eyebrow { padding-left: 2vmin; border-left: 2px solid #34303c; }
+/* Tabla compacta cuando hay muchos transportistas */
+table.board.dense { border-spacing: 0 .7vmin; }
+.board.dense td { padding-top: 1vmin; padding-bottom: 1vmin; font-size: 2.8vmin; }
+.board.dense td.name { font-size: 3.2vmin; }
+.board.dense td.cell { font-size: 3.8vmin; }
+.board.dense td.extra { font-size: 2.7vmin; }
 </style>
 </head>
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "fecha": "2026-11-06",
-  "actualizado": "2026-11-06T12:20:00+01:00",
-  "transportistas": [
-    { "nombre": "Sergio Gonzalez Gimeno", "tareas": ["Ruta 13", "Guardia noche"] },
-    { "nombre": "Andrei Matei", "tareas": ["Ruta 24"] },
-    { "nombre": "Adrian Gabriel Sulea", "tareas": ["Valija 1", "R4 ruta 9"] },
-    { "nombre": "Viçenç Cumba", "tareas": ["R1 ruta 10", "R3 ruta 9", "Valija noche"] }
-  ],
-  "ausencias": [
-    { "nombre": "Javier Jose Mora Durán (Javi)", "tipo": "Libra", "detalle": "R3 ruta 9", "desde": "2026-11-06", "hasta": "2026-11-06" },
-    { "nombre": "Cristian Gimenez Serena", "tipo": "Libra", "detalle": "R1 ruta 10 · por avería", "desde": "2026-11-06", "hasta": "2026-11-06" }
+  "actualizado": "2026-11-06T20:05:00+01:00",
+  "dias": [
+    {
+      "fecha": "2026-11-06",
+      "transportistas": [
+        {
+          "nombre": "Sergio Gonzalez Gimeno",
+          "tareas": [
+            "Ruta 13",
+            "Guardia noche"
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            "Ruta 24"
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel Sulea",
+          "tareas": [
+            "Valija 1",
+            "R4 ruta 9"
+          ]
+        },
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            "R1 ruta 10",
+            "R3 ruta 9",
+            "Valija noche"
+          ]
+        }
+      ],
+      "ausencias": [
+        {
+          "nombre": "Javier Jose Mora Durán (Javi)",
+          "tipo": "Libra",
+          "detalle": "R3 ruta 9",
+          "desde": "2026-11-06",
+          "hasta": "2026-11-06"
+        },
+        {
+          "nombre": "Cristian Gimenez Serena",
+          "tipo": "Libra",
+          "detalle": "R1 ruta 10 · por avería",
+          "desde": "2026-11-06",
+          "hasta": "2026-11-06"
+        }
+      ]
+    },
+    {
+      "fecha": "2026-11-07",
+      "transportistas": [
+        {
+          "nombre": "Tiberius Toma",
+          "tareas": [
+            "Ruta 54",
+            "Valija Gavá"
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez Gimeno",
+          "tareas": [
+            "Ruta 14"
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            "Ruta 17"
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel Sulea",
+          "tareas": [
+            "Ruta 13"
+          ]
+        },
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            "Guardia tarde y noche Castellón"
+          ]
+        },
+        {
+          "nombre": "Aitor Giménez Serena",
+          "tareas": [
+            "Ruta 22"
+          ]
+        },
+        {
+          "nombre": "Mihai Sebastian Oprea",
+          "tareas": [
+            "Clasificación multizona",
+            "Ruta 52"
+          ]
+        },
+        {
+          "nombre": "Javier Jose Mora Durán",
+          "tareas": [
+            "Ruta 9 completa"
+          ]
+        }
+      ],
+      "ausencias": [
+        {
+          "nombre": "Jose Manuel Rodríguez Bacas (Rodri)",
+          "tipo": "Descansa",
+          "detalle": "Ruta 14",
+          "desde": "2026-11-07",
+          "hasta": "2026-11-07"
+        },
+        {
+          "nombre": "Ciprian Gabriel Radu (Gabi)",
+          "tipo": "Descansa",
+          "detalle": "Ruta 17",
+          "desde": "2026-11-07",
+          "hasta": "2026-11-07"
+        }
+      ]
+    }
   ]
 }
 </script>
@@ -141,6 +266,7 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
     return e;
   }
   function parseDate(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function dayKey(d) { return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); }
   var fmtLong = new Intl.DateTimeFormat('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
   var fmtShort = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short' });
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
@@ -156,32 +282,57 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
     return { kind: 'special', texto: txt, badge: 'Tarea' };
   }
 
+  // Días a mostrar: hoy y siguientes (los pasados se descartan)
+  var now = new Date();
+  var todayKey = dayKey(now);
+  var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  var dias = (data.dias || []).filter(function (d) { return dayKey(parseDate(d.fecha)) >= todayKey; });
+  var hasToday = dias.some(function (d) { return dayKey(parseDate(d.fecha)) === todayKey; });
+
+  function dayLabel(d) {
+    var k = dayKey(parseDate(d.fecha));
+    if (k === todayKey) return 'Hoy';
+    if (k === dayKey(tomorrow)) return 'Mañana';
+    return cap(new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(parseDate(d.fecha)));
+  }
+  function head(s, d, kicker) {
+    var row = el('div', 'kicker');
+    var isToday = dayKey(parseDate(d.fecha)) === todayKey;
+    row.appendChild(el('span', 'daytag' + (isToday ? ' today' : ''), dayLabel(d)));
+    row.appendChild(el('span', 'dayname', cap(fmtLong.format(parseDate(d.fecha)))));
+    row.appendChild(el('span', 'eyebrow', kicker));
+    s.appendChild(row);
+  }
+
   var slides = [];
 
-  // 1 · Resumen
-  (function () {
+  function summarySlide(d) {
     var s = el('section', 'slide');
-    s.appendChild(el('div', 'eyebrow', 'Resumen del día'));
-    s.appendChild(el('h1', null, 'Quién lleva cada turno'));
-    if (!data.transportistas.length) {
+    head(s, d, 'Resumen');
+    s.appendChild(el('h1', null, dayKey(parseDate(d.fecha)) === todayKey ? 'Quién lleva cada turno' : 'Rutas de ' + dayLabel(d).toLowerCase()));
+    if (!d.transportistas.length) {
       s.appendChild(el('p', 'empty-note', 'No hay rutas asignadas en el calendario para este día.'));
       slides.push(s); return;
     }
+    var all = [];
+    d.transportistas.forEach(function (t) { all.push(t.tareas.map(parseTask)); });
+    var turnos = ['R1', 'R2', 'R3', 'R4'].filter(function (t) {
+      return all.some(function (ts) { return ts.some(function (x) { return x.turno === t; }); });
+    });
     var wrap = el('div', 'board-wrap');
-    var table = el('table', 'board');
-    var turnos = ['R1', 'R2', 'R3', 'R4'];
+    var table = el('table', 'board' + (d.transportistas.length > 6 ? ' dense' : ''));
     var thead = el('thead'); var hr = el('tr');
     hr.appendChild(el('th', null, 'Transportista'));
     turnos.forEach(function (t) { var th = el('th', 'shift'); th.appendChild(el('span', null, t)); hr.appendChild(th); });
-    hr.appendChild(el('th', null, 'Otras rutas, valijas y guardias'));
+    hr.appendChild(el('th', null, turnos.length ? 'Otras rutas, valijas y guardias' : 'Rutas y tareas'));
     thead.appendChild(hr); table.appendChild(thead);
     var tb = el('tbody');
-    data.transportistas.forEach(function (d) {
+    d.transportistas.forEach(function (t, n) {
+      var tasks = all[n];
       var tr = el('tr');
-      tr.appendChild(el('td', 'name', d.nombre));
-      var tasks = d.tareas.map(parseTask);
-      turnos.forEach(function (t) {
-        var here = tasks.filter(function (x) { return x.turno === t; });
+      tr.appendChild(el('td', 'name', t.nombre));
+      turnos.forEach(function (tu) {
+        var here = tasks.filter(function (x) { return x.turno === tu; });
         var td = el('td', 'cell' + (here.length ? '' : ' empty'));
         if (!here.length) td.textContent = '—';
         here.forEach(function (x, i) {
@@ -202,36 +353,38 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
     });
     table.appendChild(tb); wrap.appendChild(table); s.appendChild(wrap);
     slides.push(s);
-  })();
+  }
 
-  // 2..n · Una ficha por transportista
-  data.transportistas.forEach(function (d) {
-    var s = el('section', 'slide');
-    var g = el('div', 'driver');
-    var who = el('div', 'who');
-    who.appendChild(el('div', 'eyebrow', 'Transportista'));
-    who.appendChild(el('h2', null, d.nombre));
-    var tasks = d.tareas.map(parseTask);
-    var nRutas = tasks.filter(function (x) { return x.kind === 'turno' || x.kind === 'ruta'; }).length;
-    who.appendChild(el('div', 'count', nRutas + (nRutas === 1 ? ' ruta' : ' rutas') + ' · ' + tasks.length + (tasks.length === 1 ? ' tarea' : ' tareas') + ' hoy'));
-    var ul = el('ul', 'tasks');
-    tasks.forEach(function (x) {
-      var li = el('li', 'task' + (x.kind === 'turno' ? '' : (x.kind === 'ruta' ? ' route' : ' special')));
-      li.appendChild(el('span', 'badge', x.turno || x.badge));
-      li.appendChild(el('span', 'what', x.texto));
-      ul.appendChild(li);
+  function driverSlides(d) {
+    d.transportistas.forEach(function (t) {
+      var s = el('section', 'slide');
+      head(s, d, 'Transportista');
+      var g = el('div', 'driver');
+      var who = el('div', 'who');
+      who.appendChild(el('h2', null, t.nombre));
+      var tasks = t.tareas.map(parseTask);
+      var nRutas = tasks.filter(function (x) { return x.kind === 'turno' || x.kind === 'ruta'; }).length;
+      who.appendChild(el('div', 'count', nRutas + (nRutas === 1 ? ' ruta' : ' rutas') + ' · ' + tasks.length + (tasks.length === 1 ? ' tarea' : ' tareas')));
+      var ul = el('ul', 'tasks');
+      tasks.forEach(function (x) {
+        var li = el('li', 'task' + (x.kind === 'turno' ? '' : (x.kind === 'ruta' ? ' route' : ' special')));
+        li.appendChild(el('span', 'badge', x.turno || x.badge));
+        li.appendChild(el('span', 'what', x.texto));
+        ul.appendChild(li);
+      });
+      g.appendChild(who); g.appendChild(ul); s.appendChild(g);
+      slides.push(s);
     });
-    g.appendChild(who); g.appendChild(ul); s.appendChild(g);
-    slides.push(s);
-  });
+  }
 
-  // Ausencias
-  if (data.ausencias && data.ausencias.length) {
+  function absenceSlide(d) {
+    if (!d.ausencias || !d.ausencias.length) return;
     var s = el('section', 'slide');
-    s.appendChild(el('div', 'eyebrow', 'Ausencias y libranzas'));
-    s.appendChild(el('h1', null, 'Hoy no están'));
+    head(s, d, 'Ausencias y libranzas');
+    var isToday = dayKey(parseDate(d.fecha)) === todayKey;
+    s.appendChild(el('h1', null, isToday ? 'Hoy no están' : dayLabel(d) + ' no están'));
     var grid = el('div', 'absences');
-    data.ausencias.forEach(function (a) {
+    d.ausencias.forEach(function (a) {
       var c = el('article', 'absence');
       c.appendChild(el('div', 'kind', a.tipo));
       c.appendChild(el('div', 'n', a.nombre));
@@ -246,6 +399,20 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
     });
     s.appendChild(grid);
     slides.push(s);
+  }
+
+  // Hoy: resumen, una ficha por transportista y ausencias. Días siguientes: resumen y ausencias.
+  dias.forEach(function (d) {
+    var isToday = dayKey(parseDate(d.fecha)) === todayKey;
+    summarySlide(d);
+    if (isToday) driverSlides(d);
+    absenceSlide(d);
+  });
+  if (!slides.length) {
+    var s0 = el('section', 'slide');
+    s0.appendChild(el('div', 'eyebrow', 'Sin datos'));
+    s0.appendChild(el('h1', null, 'No hay rutas cargadas para hoy'));
+    slides.push(s0);
   }
 
   slides.forEach(function (s, i) {
@@ -283,9 +450,9 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
 
   // Mando de la TV / teclado
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight' || e.key === 'PageDown') { go(idx + 1); e.preventDefault(); }
-    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(idx - 1); e.preventDefault(); }
-    else if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === document.body) { togglePause(); e.preventDefault(); }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.keyCode === 39) { go(idx + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.keyCode === 37) { go(idx - 1); e.preventDefault(); }
+    else if ((e.key === 'Enter' || e.key === ' ' || e.keyCode === 13) && document.activeElement === document.body) { togglePause(); e.preventDefault(); }
   });
 
   // Pantalla completa (opcional)
@@ -311,20 +478,20 @@ table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
     clearTimeout(hideT); hideT = setTimeout(function () { document.body.classList.remove('pointer'); }, 2500);
   });
 
-  // Reloj, fecha y aviso si los datos no son de hoy
+  // Reloj, fecha de hoy y aviso si no hay datos de hoy
   var dateEl = document.getElementById('date'), clockEl = document.getElementById('clock'), metaEl = document.getElementById('meta');
-  var dataDay = parseDate(data.fecha);
   var upd = new Date(data.actualizado);
+  var loadedKey = todayKey;
   function clock() {
-    var now = new Date();
-    clockEl.textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    dateEl.textContent = cap(fmtLong.format(dataDay));
-    var sameDay = now.getFullYear() === dataDay.getFullYear() && now.getMonth() === dataDay.getMonth() && now.getDate() === dataDay.getDate();
+    var n = new Date();
+    if (dayKey(n) !== loadedKey) { location.reload(); return; } // cambio de día: recalcula Hoy/Mañana
+    clockEl.textContent = n.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    dateEl.textContent = cap(fmtLong.format(n));
     metaEl.textContent = '';
-    if (sameDay) {
-      metaEl.textContent = 'Actualizado ' + upd.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    if (hasToday) {
+      metaEl.textContent = 'Actualizado ' + fmtShort.format(upd) + ', ' + upd.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     } else {
-      metaEl.appendChild(el('span', 'stale', 'Rutas del ' + fmtShort.format(dataDay) + ', no de hoy'));
+      metaEl.appendChild(el('span', 'stale', 'Sin rutas de hoy · última actualización ' + fmtShort.format(upd)));
     }
   }
   clock(); setInterval(clock, 15000);
