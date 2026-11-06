@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>Rutas del día GDP Castellón</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,400..800;1,100..125,600..900&display=swap">
+<style>
+/* Versión para navegadores de smart TV (Samsung Tizen): sin variables CSS, sin grid, sin gap en flex, sin max()/env().
+   Colores del logo: tinta #1e1e1c, morado #5a287e; morado claro #b99ad6; fondo #17161a; panel #232128; línea #34303c. */
+html, body { height: 100%; margin: 0; padding: 0; }
+body { background: #17161a; color: #f4f2f6; font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; overflow: hidden; cursor: none; }
+body.pointer { cursor: default; }
+* { box-sizing: border-box; }
+.stage { height: 100%; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+.gutter { padding-left: 3vmin; padding-right: 3vmin; }
+
+.top { background: #fff; color: #1e1e1c; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: space-between; justify-content: space-between; padding-top: 2vmin; padding-bottom: 2vmin; border-bottom: .9vmin solid #5a287e; -webkit-flex: none; flex: none; }
+.brand { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; min-width: 0; }
+.brand > * { margin-right: 2.6vmin; }
+.logo { height: 6.4vmin; width: 24.4vmin; display: block; -webkit-flex: none; flex: none; }
+.brand .sep { width: 2px; height: 6.4vmin; background: #dcd6e2; }
+.brand .place { line-height: 1.05; min-width: 0; }
+.brand .place b { display: block; font-weight: 800; font-style: italic; font-size: 3.6vmin; }
+.brand .place span { display: block; color: #6d6774; font-size: 2.2vmin; font-weight: 500; white-space: nowrap; }
+.when { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; }
+.date { font-weight: 600; font-size: 3vmin; color: #4a4552; white-space: nowrap; margin-right: 2.6vmin; }
+.clock { font-weight: 800; font-size: 5.6vmin; color: #fff; background: #5a287e; padding: .4vmin 1.8vmin; border-radius: .8vmin; line-height: 1.1; }
+
+.slides { position: relative; -webkit-flex: 1; flex: 1; min-height: 0; margin-top: 3vmin; margin-bottom: 1.6vmin; }
+.slide { position: absolute; top: 0; bottom: 0; left: 3vmin; right: 3vmin; opacity: 0; -webkit-transition: opacity .55s ease; transition: opacity .55s ease; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+.slide.on { opacity: 1; }
+.slide > * + * { margin-top: 2.4vmin; }
+
+.eyebrow { font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: #b99ad6; font-size: 2.5vmin; }
+h1, h2 { margin: 0; font-weight: 900; font-style: italic; line-height: .95; }
+h1 { font-size: 7.6vmin; }
+h2 { font-size: 9.6vmin; }
+.empty-note { font-size: 4vmin; color: #a39dab; margin: 0; }
+
+.board-wrap { -webkit-flex: 1; flex: 1; min-height: 0; }
+table.board { width: 100%; border-collapse: separate; border-spacing: 0 1vmin; }
+.board th { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #a39dab; font-size: 2.2vmin; text-align: left; padding: 0 1.8vmin .2vmin; }
+.board th.shift { text-align: center; }
+.board th.shift span { display: inline-block; background: #5a287e; color: #fff; border-radius: .6vmin; padding: .3vmin 1.4vmin; letter-spacing: .06em; font-weight: 800; }
+.board td { background: #232128; padding: 1.6vmin 1.8vmin; font-size: 3.2vmin; border-top: 1px solid #34303c; border-bottom: 1px solid #34303c; }
+.board td:first-child { border-left: .7vmin solid #5a287e; border-radius: .8vmin 0 0 .8vmin; }
+.board td:last-child { border-right: 1px solid #34303c; border-radius: 0 .8vmin .8vmin 0; }
+.board td.name { font-weight: 800; font-size: 3.8vmin; white-space: nowrap; }
+.board td.cell { text-align: center; font-weight: 800; font-size: 4.6vmin; }
+.board td.cell.empty { color: #34303c; }
+.board td .multi { display: block; font-size: 3.4vmin; }
+.board td.extra { font-size: 2.9vmin; }
+.board td.extra .r { font-weight: 800; color: #f4f2f6; }
+.board td.extra .s { font-weight: 600; color: #b99ad6; }
+
+.driver { -webkit-flex: 1; flex: 1; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; }
+.driver .who { width: 42%; padding-right: 5vmin; }
+.driver .who > * + * { margin-top: 2vmin; }
+.driver .who .count { color: #a39dab; font-size: 3vmin; font-weight: 500; }
+.tasks { width: 58%; list-style: none; margin: 0; padding: 0; }
+.tasks > * + * { margin-top: 1.6vmin; }
+.task { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; background: #232128; border: 1px solid #34303c; border-radius: 1vmin; padding: 1.8vmin 2.4vmin; }
+.badge { width: 14vmin; -webkit-flex: none; flex: none; margin-right: 2.6vmin; font-weight: 900; font-style: italic; font-size: 4.8vmin; text-align: center; line-height: 1.15; color: #fff; background: #5a287e; border-radius: .6vmin; padding: .3vmin 0; }
+.task.special .badge, .task.route .badge { background: transparent; color: #b99ad6; border: 2px solid #b99ad6; font-size: 2.6vmin; font-style: normal; text-transform: uppercase; letter-spacing: .08em; padding: 1.2vmin 0; }
+.task .what { font-weight: 800; font-size: 6vmin; line-height: 1; }
+
+.absences { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; margin-right: -2.4vmin; }
+.absence { width: 47%; margin-right: 2.4vmin; margin-bottom: 2.4vmin; background: #232128; border: 1px solid #34303c; border-left: .9vmin solid #f0866f; border-radius: 1vmin; padding: 2.6vmin 3vmin; }
+.absence > * + * { margin-top: 1.2vmin; }
+.absence .kind { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #f0866f; font-size: 2.6vmin; }
+.absence .n { font-weight: 900; font-style: italic; font-size: 5.6vmin; line-height: 1; }
+.absence .d { font-size: 3vmin; }
+.absence .r { font-size: 2.5vmin; color: #a39dab; }
+
+.foot { -webkit-flex: none; flex: none; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; padding-top: 1.4vmin; padding-bottom: 2.2vmin; }
+.foot > * { margin-right: 2.4vmin; }
+.foot > *:last-child { margin-right: 0; }
+.dots { display: -webkit-flex; display: flex; }
+.dot { width: 1.4vmin; height: 1.4vmin; border-radius: 50%; background: #34303c; border: 0; padding: 0; margin-right: 1vmin; }
+.dot.on { background: #b99ad6; }
+.bar { -webkit-flex: 1; flex: 1; height: .6vmin; background: #34303c; border-radius: 1vmin; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: #b99ad6; }
+.meta { color: #a39dab; font-size: 2.1vmin; white-space: nowrap; }
+.ctl { background: transparent; color: #a39dab; border: 1px solid #34303c; border-radius: .6vmin; font: 600 2.1vmin Arial, sans-serif; padding: .6vmin 1.4vmin; }
+.stale { color: #f0866f; font-weight: 700; }
+</style>
+</head>
+<body>
+<script id="rutas-data" type="application/json">
+{
+  "fecha": "2026-11-06",
+  "actualizado": "2026-11-06T12:20:00+01:00",
+  "transportistas": [
+    { "nombre": "Sergio Gonzalez Gimeno", "tareas": ["Ruta 13", "Guardia noche"] },
+    { "nombre": "Andrei Matei", "tareas": ["Ruta 24"] },
+    { "nombre": "Adrian Gabriel Sulea", "tareas": ["Valija 1", "R4 ruta 9"] },
+    { "nombre": "Viçenç Cumba", "tareas": ["R1 ruta 10", "R3 ruta 9", "Valija noche"] }
+  ],
+  "ausencias": [
+    { "nombre": "Javier Jose Mora Durán (Javi)", "tipo": "Libra", "detalle": "R3 ruta 9", "desde": "2026-11-06", "hasta": "2026-11-06" },
+    { "nombre": "Cristian Gimenez Serena", "tipo": "Libra", "detalle": "R1 ruta 10 · por avería", "desde": "2026-11-06", "hasta": "2026-11-06" }
+  ]
+}
+</script>
+
+<div class="stage">
+  <header class="top gutter">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 137 36" role="img" aria-label="GDP+"><path fill-rule="evenodd" fill="#1e1e1c" d="M38.25 30.67 L38.83 31.08 L56.33 31.08 L59.25 30.58 L63.83 28.50 L64.92 27.83 L67.33 25.33 L68.83 22.75 L69.58 19.83 L69.67 17.25 L69.42 15.83 L68.58 14.00 L67.00 12.17 L65.42 10.75 L64.08 10.08 L61.17 9.08 L56.92 8.50 L43.50 8.58 L42.92 9.75 L38.25 29.83Z M47.00 14.25 L47.75 13.92 L56.25 13.92 L58.83 14.25 L60.42 15.17 L61.50 16.08 L62.42 17.58 L62.50 19.83 L61.75 22.25 L60.25 23.83 L59.17 24.67 L55.92 25.67 L53.58 26.00 L46.92 26.00 L46.42 25.83 L46.08 25.33 L46.08 24.92 L47.67 19.17 L48.00 16.67 L48.25 16.00 L48.25 15.50 L46.92 14.50Z M34.75 13.00 L33.17 11.25 L31.17 10.08 L28.83 9.17 L24.33 8.33 L21.50 8.00 L17.42 8.17 L12.08 9.33 L9.50 10.58 L7.42 12.08 L5.67 13.83 L4.42 15.67 L3.33 18.75 L3.00 21.08 L3.33 23.33 L3.67 24.33 L4.83 26.67 L6.83 28.67 L8.42 29.67 L10.92 30.83 L13.92 31.58 L17.67 31.92 L22.58 31.75 L27.17 30.75 L28.50 30.17 L30.33 29.67 L33.08 28.50 L33.83 27.50 L35.75 20.00 L35.50 19.17 L35.00 19.00 L20.00 19.08 L19.25 19.83 L18.67 22.58 L18.67 23.17 L18.83 23.33 L27.50 22.92 L28.17 23.08 L28.50 23.42 L28.50 24.00 L27.83 24.75 L26.00 25.83 L24.25 26.25 L20.08 26.50 L14.83 25.92 L12.08 24.67 L11.17 23.50 L10.50 22.25 L10.17 20.50 L10.17 19.25 L11.58 16.58 L13.50 15.08 L16.25 14.00 L20.25 13.42 L23.33 13.67 L25.58 14.17 L27.42 15.08 L28.58 16.58 L29.42 16.92 L35.42 16.92 L35.83 16.58 L35.92 15.83 L35.58 14.67Z"/><path fill-rule="evenodd" fill="#5a287e" d="M126.25 11.58 L120.42 11.58 L119.83 12.33 L118.67 15.17 L119.00 15.75 L120.25 16.50 L120.25 16.75 L119.92 17.08 L119.08 17.25 L111.67 17.17 L111.08 17.58 L110.17 19.33 L109.75 20.92 L109.25 21.92 L109.25 22.42 L109.58 22.75 L115.08 22.75 L115.58 23.08 L115.67 23.92 L114.33 27.33 L114.33 28.00 L114.58 28.33 L120.50 28.33 L121.25 27.17 L122.00 25.08 L121.75 24.17 L120.67 23.42 L120.67 23.08 L121.00 22.83 L121.92 22.67 L129.25 22.75 L129.83 22.33 L130.75 20.58 L131.17 19.00 L131.67 18.00 L131.67 17.50 L131.33 17.17 L126.00 17.25 L125.50 17.17 L125.00 16.75 L125.00 16.00 L125.75 14.33 L126.33 12.33Z M72.08 30.75 L72.25 31.00 L72.92 31.17 L78.17 31.00 L78.58 30.58 L79.17 27.92 L79.17 27.25 L78.67 25.83 L79.08 25.50 L91.25 25.42 L95.42 24.92 L98.58 23.58 L99.58 22.83 L101.17 21.17 L102.75 18.33 L103.08 16.42 L103.08 13.75 L102.67 12.58 L101.67 11.25 L100.42 10.17 L98.58 9.25 L95.00 8.83 L93.58 8.50 L77.42 8.50 L77.00 8.67 L76.42 9.83 L74.67 18.58 L74.08 20.33 L73.75 22.92 L73.08 24.75 L72.83 27.08 L72.08 29.00Z M81.08 19.33 L82.17 14.75 L82.50 14.25 L83.33 13.92 L94.08 13.92 L95.58 14.75 L96.25 15.67 L96.17 16.83 L95.67 18.25 L94.75 19.25 L93.58 19.92 L81.92 20.00 L81.42 19.83Z"/></svg>
+      <span class="sep" aria-hidden="true"></span>
+      <div class="place"><b>Castellón</b><span>Equipo de transporte · Rutas asignadas</span></div>
+    </div>
+    <div class="when"><span class="date" id="date"></span><span class="clock" id="clock">--:--</span></div>
+  </header>
+  <main class="slides" id="slides" aria-live="polite"></main>
+  <footer class="foot gutter">
+    <div class="dots" id="dots"></div>
+    <div class="bar"><i id="bar"></i></div>
+    <span class="meta" id="meta"></span>
+    <button class="ctl" id="pause" type="button">Pausa</button>
+    <button class="ctl" id="fs" type="button">Pantalla completa</button>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var SECONDS = 10;
+  var data = JSON.parse(document.getElementById('rutas-data').textContent);
+  var slidesEl = document.getElementById('slides');
+  var dotsEl = document.getElementById('dots');
+  var bar = document.getElementById('bar');
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function parseDate(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  var fmtLong = new Intl.DateTimeFormat('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+  var fmtShort = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short' });
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  // Tipos: turno ("R1 ruta 13"), ruta suelta ("Ruta 24"), valija, guardia u otra tarea
+  function parseTask(t) {
+    var m = /^\s*(R\d)\s+(.*)$/i.exec(t);
+    if (m) return { kind: 'turno', turno: m[1].toUpperCase(), texto: cap(m[2].trim()) };
+    var txt = cap(t.trim());
+    if (/^ruta\b/i.test(txt)) return { kind: 'ruta', texto: txt, badge: 'Ruta' };
+    if (/valija/i.test(txt)) return { kind: 'special', texto: txt, badge: 'Valija' };
+    if (/guardia/i.test(txt)) return { kind: 'special', texto: txt, badge: 'Guardia' };
+    return { kind: 'special', texto: txt, badge: 'Tarea' };
+  }
+
+  var slides = [];
+
+  // 1 · Resumen
+  (function () {
+    var s = el('section', 'slide');
+    s.appendChild(el('div', 'eyebrow', 'Resumen del día'));
+    s.appendChild(el('h1', null, 'Quién lleva cada turno'));
+    if (!data.transportistas.length) {
+      s.appendChild(el('p', 'empty-note', 'No hay rutas asignadas en el calendario para este día.'));
+      slides.push(s); return;
+    }
+    var wrap = el('div', 'board-wrap');
+    var table = el('table', 'board');
+    var turnos = ['R1', 'R2', 'R3', 'R4'];
+    var thead = el('thead'); var hr = el('tr');
+    hr.appendChild(el('th', null, 'Transportista'));
+    turnos.forEach(function (t) { var th = el('th', 'shift'); th.appendChild(el('span', null, t)); hr.appendChild(th); });
+    hr.appendChild(el('th', null, 'Otras rutas, valijas y guardias'));
+    thead.appendChild(hr); table.appendChild(thead);
+    var tb = el('tbody');
+    data.transportistas.forEach(function (d) {
+      var tr = el('tr');
+      tr.appendChild(el('td', 'name', d.nombre));
+      var tasks = d.tareas.map(parseTask);
+      turnos.forEach(function (t) {
+        var here = tasks.filter(function (x) { return x.turno === t; });
+        var td = el('td', 'cell' + (here.length ? '' : ' empty'));
+        if (!here.length) td.textContent = '—';
+        here.forEach(function (x, i) {
+          var v = x.texto.replace(/^ruta\s*/i, '');
+          if (i === 0) td.textContent = v; else td.appendChild(el('span', 'multi', v));
+        });
+        tr.appendChild(td);
+      });
+      var td = el('td', 'extra');
+      var rest = tasks.filter(function (x) { return x.kind !== 'turno'; });
+      if (!rest.length) td.textContent = '—';
+      rest.forEach(function (x, i) {
+        if (i) td.appendChild(document.createTextNode(' · '));
+        td.appendChild(el('span', x.kind === 'ruta' ? 'r' : 's', x.texto));
+      });
+      tr.appendChild(td);
+      tb.appendChild(tr);
+    });
+    table.appendChild(tb); wrap.appendChild(table); s.appendChild(wrap);
+    slides.push(s);
+  })();
+
+  // 2..n · Una ficha por transportista
+  data.transportistas.forEach(function (d) {
+    var s = el('section', 'slide');
+    var g = el('div', 'driver');
+    var who = el('div', 'who');
+    who.appendChild(el('div', 'eyebrow', 'Transportista'));
+    who.appendChild(el('h2', null, d.nombre));
+    var tasks = d.tareas.map(parseTask);
+    var nRutas = tasks.filter(function (x) { return x.kind === 'turno' || x.kind === 'ruta'; }).length;
+    who.appendChild(el('div', 'count', nRutas + (nRutas === 1 ? ' ruta' : ' rutas') + ' · ' + tasks.length + (tasks.length === 1 ? ' tarea' : ' tareas') + ' hoy'));
+    var ul = el('ul', 'tasks');
+    tasks.forEach(function (x) {
+      var li = el('li', 'task' + (x.kind === 'turno' ? '' : (x.kind === 'ruta' ? ' route' : ' special')));
+      li.appendChild(el('span', 'badge', x.turno || x.badge));
+      li.appendChild(el('span', 'what', x.texto));
+      ul.appendChild(li);
+    });
+    g.appendChild(who); g.appendChild(ul); s.appendChild(g);
+    slides.push(s);
+  });
+
+  // Ausencias
+  if (data.ausencias && data.ausencias.length) {
+    var s = el('section', 'slide');
+    s.appendChild(el('div', 'eyebrow', 'Ausencias y libranzas'));
+    s.appendChild(el('h1', null, 'Hoy no están'));
+    var grid = el('div', 'absences');
+    data.ausencias.forEach(function (a) {
+      var c = el('article', 'absence');
+      c.appendChild(el('div', 'kind', a.tipo));
+      c.appendChild(el('div', 'n', a.nombre));
+      if (a.detalle) c.appendChild(el('div', 'd', a.detalle));
+      if (a.hasta) {
+        var txt = a.desde && a.desde !== a.hasta
+          ? 'Del ' + fmtShort.format(parseDate(a.desde)) + ' al ' + fmtShort.format(parseDate(a.hasta))
+          : 'Solo ' + fmtShort.format(parseDate(a.hasta));
+        c.appendChild(el('div', 'r', txt));
+      }
+      grid.appendChild(c);
+    });
+    s.appendChild(grid);
+    slides.push(s);
+  }
+
+  slides.forEach(function (s, i) {
+    slidesEl.appendChild(s);
+    var b = el('button', 'dot'); b.type = 'button'; b.setAttribute('aria-label', 'Diapositiva ' + (i + 1));
+    b.addEventListener('click', function () { go(i); });
+    dotsEl.appendChild(b);
+  });
+
+  // Rotación
+  var idx = 0, paused = false, start = performance.now(), elapsed = 0;
+  function go(i) {
+    idx = (i + slides.length) % slides.length;
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === idx); });
+    Array.prototype.forEach.call(dotsEl.children, function (d, k) { d.classList.toggle('on', k === idx); });
+    start = performance.now(); elapsed = 0;
+  }
+  function tick(now) {
+    if (!paused) {
+      elapsed = (now - start) / 1000;
+      if (elapsed >= SECONDS) go(idx + 1);
+    }
+    bar.style.width = Math.min(100, (elapsed / SECONDS) * 100) + '%';
+    requestAnimationFrame(tick);
+  }
+  go(0); requestAnimationFrame(tick);
+
+  var pauseBtn = document.getElementById('pause');
+  function togglePause() {
+    paused = !paused;
+    if (!paused) start = performance.now() - elapsed * 1000;
+    pauseBtn.textContent = paused ? 'Continuar' : 'Pausa';
+  }
+  pauseBtn.addEventListener('click', togglePause);
+
+  // Mando de la TV / teclado
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { go(idx + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(idx - 1); e.preventDefault(); }
+    else if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === document.body) { togglePause(); e.preventDefault(); }
+  });
+
+  // Pantalla completa (opcional)
+  document.getElementById('fs').addEventListener('click', function () {
+    var d = document.documentElement;
+    try {
+      var p = document.fullscreenElement ? document.exitFullscreen() : (d.requestFullscreen ? d.requestFullscreen() : null);
+      if (p && p.catch) p.catch(function () {});
+    } catch (err) {}
+  });
+
+  // Mantener la pantalla encendida si el navegador lo permite
+  function wake() {
+    try { if (navigator.wakeLock) navigator.wakeLock.request('screen').catch(function () {}); } catch (err) {}
+  }
+  wake();
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') wake(); });
+
+  // Ocultar el cursor salvo al mover el ratón
+  var hideT;
+  document.addEventListener('mousemove', function () {
+    document.body.classList.add('pointer');
+    clearTimeout(hideT); hideT = setTimeout(function () { document.body.classList.remove('pointer'); }, 2500);
+  });
+
+  // Reloj, fecha y aviso si los datos no son de hoy
+  var dateEl = document.getElementById('date'), clockEl = document.getElementById('clock'), metaEl = document.getElementById('meta');
+  var dataDay = parseDate(data.fecha);
+  var upd = new Date(data.actualizado);
+  function clock() {
+    var now = new Date();
+    clockEl.textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    dateEl.textContent = cap(fmtLong.format(dataDay));
+    var sameDay = now.getFullYear() === dataDay.getFullYear() && now.getMonth() === dataDay.getMonth() && now.getDate() === dataDay.getDate();
+    metaEl.textContent = '';
+    if (sameDay) {
+      metaEl.textContent = 'Actualizado ' + upd.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    } else {
+      metaEl.appendChild(el('span', 'stale', 'Rutas del ' + fmtShort.format(dataDay) + ', no de hoy'));
+    }
+  }
+  clock(); setInterval(clock, 15000);
+})();
+</script>
+
+<script>
+setTimeout(function () {
+  var u = location.href.split('?')[0];
+  location.replace(u + '?t=' + Date.now());
+}, 10 * 60 * 1000);
+</script>
+</body>
+</html>
