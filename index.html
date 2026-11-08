@@ -113,44 +113,10 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-08T11:16:00+01:00",
+  "actualizado": "2026-11-08T11:22:00+01:00",
   "dias": [
     {
-      "fecha": "2026-11-08",
-      "fuente": "Outlook · Tráfico Castellón",
-      "transportistas": [
-        {
-          "nombre": "Sergio Gonzalez Gimeno",
-          "tareas": [
-            "Refuerzo"
-          ]
-        },
-        {
-          "nombre": "Andrei Matei",
-          "tareas": [
-            "Ruta Sur"
-          ]
-        },
-        {
-          "nombre": "Viçenç Cumba",
-          "tareas": [
-            "Ruta Norte"
-          ]
-        }
-      ],
-      "ausencias": [
-        {
-          "nombre": "Adrian Gabriel Sulea",
-          "tipo": "Descanso",
-          "detalle": "",
-          "desde": "2026-11-08",
-          "hasta": "2026-11-08"
-        }
-      ]
-    },
-    {
       "fecha": "2026-11-09",
-      "fuente": "Google Calendar · Reservas",
       "transportistas": [
         {
           "nombre": "Vicente Cumba",
@@ -273,7 +239,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
   var todayKey = dayKey(now);
   var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
   var dias = (data.dias || []).filter(function (d) { return dayKey(parseDate(d.fecha)) >= todayKey; });
-  var hasToday = dias.some(function (d) { return dayKey(parseDate(d.fecha)) === todayKey; });
+  var hasToday = dias.length > 0;
 
   function dayLabel(d) {
     var k = dayKey(parseDate(d.fecha));
@@ -287,7 +253,6 @@ table.board.dense { border-spacing: 0 .7vmin; }
     row.appendChild(el('span', 'daytag' + (isToday ? ' today' : ''), dayLabel(d)));
     row.appendChild(el('span', 'dayname', cap(fmtLong.format(parseDate(d.fecha)))));
     row.appendChild(el('span', 'eyebrow', kicker));
-    if (d.fuente) row.appendChild(el('span', 'source', d.fuente));
     s.appendChild(row);
   }
 
@@ -389,11 +354,11 @@ table.board.dense { border-spacing: 0 .7vmin; }
     slides.push(s);
   }
 
-  // Hoy: resumen, una ficha por transportista y ausencias. Días siguientes: resumen y ausencias.
+  // Cada día: resumen, una ficha por transportista y ausencias.
   dias.forEach(function (d) {
     var isToday = dayKey(parseDate(d.fecha)) === todayKey;
     summarySlide(d);
-    if (isToday) driverSlides(d);
+    driverSlides(d);
     absenceSlide(d);
   });
   if (!slides.length) {
@@ -479,7 +444,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
     if (hasToday) {
       metaEl.textContent = 'Actualizado ' + fmtShort.format(upd) + ', ' + upd.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     } else {
-      metaEl.appendChild(el('span', 'stale', 'Sin rutas de hoy · última actualización ' + fmtShort.format(upd)));
+      metaEl.appendChild(el('span', 'stale', 'Sin rutas cargadas · última actualización ' + fmtShort.format(upd)));
     }
   }
   clock(); setInterval(clock, 15000);
