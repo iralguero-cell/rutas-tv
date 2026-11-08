@@ -113,7 +113,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-08T11:10:00+01:00",
+  "actualizado": "2026-11-08T11:16:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-08",
@@ -157,17 +157,14 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "tareas": [
             {
               "texto": "R1 ruta 13",
-              "codigo": "070131",
-              "horario": "06:00–09:30"
+              "codigo": "070131"
             },
             {
               "texto": "R3 ruta 13",
-              "codigo": "070133",
-              "horario": "13:00–18:00"
+              "codigo": "070133"
             },
             {
-              "texto": "Valija noche",
-              "horario": "21:00–23:59"
+              "texto": "Valija noche"
             }
           ]
         },
@@ -176,13 +173,11 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "tareas": [
             {
               "texto": "R2 ruta 24",
-              "codigo": "070242",
-              "horario": "11:00–13:30"
+              "codigo": "070242"
             },
             {
               "texto": "Guardia noche",
-              "codigo": "070025",
-              "horario": "20:30–22:00"
+              "codigo": "070025"
             }
           ]
         },
@@ -190,13 +185,11 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "nombre": "Andrei Matei",
           "tareas": [
             {
-              "texto": "Valija 1",
-              "horario": "11:00–14:00"
+              "texto": "Valija 1"
             },
             {
               "texto": "R4 ruta 24",
-              "codigo": "070244",
-              "horario": "18:00–19:15"
+              "codigo": "070244"
             }
           ]
         },
@@ -205,8 +198,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "tareas": [
             {
               "texto": "R4 ruta 9",
-              "codigo": "070094",
-              "horario": "18:00–20:15"
+              "codigo": "070094"
             }
           ]
         }
@@ -260,7 +252,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
   function parseTask(t) {
     var o = (typeof t === 'string') ? { texto: t } : t;
     var r = classify(o.texto || '');
-    r.codigo = o.codigo || ''; r.horario = o.horario || '';
+    r.codigo = o.codigo || '';
     return r;
   }
   function classify(t) {
@@ -273,7 +265,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
     return { kind: 'special', texto: txt, badge: 'Tarea' };
   }
   function subline(x) {
-    return [x.codigo, x.horario].filter(function (v) { return v; }).join(' · ');
+    return [x.codigo].filter(function (v) { return v; }).join(' · ');
   }
 
   // Días a mostrar: hoy y siguientes (los pasados se descartan)
@@ -332,7 +324,6 @@ table.board.dense { border-spacing: 0 .7vmin; }
         if (!here.length) td.textContent = '—';
         here.forEach(function (x) {
           td.appendChild(el('span', 'multi', x.texto.replace(/^ruta\s*/i, '')));
-          if (x.horario) td.appendChild(el('span', 'time', x.horario));
         });
         tr.appendChild(td);
       });
@@ -342,7 +333,6 @@ table.board.dense { border-spacing: 0 .7vmin; }
       rest.forEach(function (x, i) {
         if (i) td.appendChild(document.createTextNode(' · '));
         td.appendChild(el('span', x.kind === 'ruta' ? 'r' : 's', x.texto));
-        if (x.horario) td.appendChild(el('span', 'time-inline', ' ' + x.horario));
       });
       tr.appendChild(td);
       tb.appendChild(tr);
