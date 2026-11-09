@@ -508,10 +508,25 @@ table.board.dense { border-spacing: 0 .7vmin; }
 </script>
 
 <script>
-setTimeout(function () {
-  var u = location.href.split('?')[0];
-  location.replace(u + '?t=' + Date.now());
-}, 10 * 60 * 1000);
+// Recarga automática: cada minuto mira si en GitHub hay una versión nueva de la página
+// (compara la fecha "actualizado" de los datos) y, si la hay, recarga. Sin botones.
+(function () {
+  var base = location.pathname;
+  var current = (JSON.parse(document.getElementById('rutas-data').textContent) || {}).actualizado || '';
+  function check() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', base + '?check=' + Date.now(), true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState !== 4 || xhr.status !== 200) return;
+      var m = /"actualizado"\s*:\s*"([^"]+)"/.exec(xhr.responseText);
+      if (m && m[1] !== current) location.replace(base + '?t=' + Date.now());
+    };
+    try { xhr.send(); } catch (e) {}
+  }
+  setInterval(check, 60 * 1000);
+  // Por seguridad, recarga completa cada hora aunque no detecte cambios
+  setTimeout(function () { location.replace(base + '?t=' + Date.now()); }, 60 * 60 * 1000);
+})();
 </script>
 </body>
 </html>
