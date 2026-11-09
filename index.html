@@ -108,12 +108,25 @@ table.board.dense { border-spacing: 0 .7vmin; }
 .board td.cell .time { display: block; font-size: 2vmin; font-weight: 600; color: #b99ad6; margin-top: .3vmin; }
 .board td.extra .time-inline { font-size: 2.2vmin; color: #a39dab; font-weight: 500; }
 .task .what small { display: block; font-weight: 500; font-size: 2.4vmin; color: #a39dab; margin-top: .6vmin; }
+
+/* Recordatorio de los lunes: diapositiva de aviso a pantalla llena */
+.slide.alert { -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; text-align: center; background: #5a287e; border-radius: 2vmin; padding: 4vmin; -webkit-animation: alertPulse 2s ease-out infinite; animation: alertPulse 2s ease-out infinite; }
+.slide.alert > * + * { margin-top: 3vmin; }
+.key-icon { width: 20vmin; height: 20vmin; display: block; margin: 0 auto; -webkit-transform-origin: 30% 35%; transform-origin: 30% 35%; -webkit-animation: keySwing 1.6s ease-in-out infinite; animation: keySwing 1.6s ease-in-out infinite; }
+.alert-tag { display: inline-block; font-weight: 800; text-transform: uppercase; letter-spacing: .18em; font-size: 2.8vmin; color: #5a287e; background: #ffffff; padding: .8vmin 2.4vmin; border-radius: 10vmin; }
+.alert-msg { font-size: 10.5vmin; color: #ffffff; line-height: 1.02; max-width: 92%; }
+.alert-msg mark { background: #ffffff; color: #5a287e; padding: 0 1.6vmin; border-radius: 1vmin; font-style: italic; }
+@-webkit-keyframes keySwing { 0%, 100% { -webkit-transform: rotate(-12deg); } 50% { -webkit-transform: rotate(12deg); } }
+@keyframes keySwing { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+@-webkit-keyframes alertPulse { 0% { box-shadow: 0 0 0 0 rgba(185, 154, 214, .75); } 70% { box-shadow: 0 0 0 3vmin rgba(185, 154, 214, 0); } 100% { box-shadow: 0 0 0 0 rgba(185, 154, 214, 0); } }
+@keyframes alertPulse { 0% { box-shadow: 0 0 0 0 rgba(185, 154, 214, .75); } 70% { box-shadow: 0 0 0 3vmin rgba(185, 154, 214, 0); } 100% { box-shadow: 0 0 0 0 rgba(185, 154, 214, 0); } }
+@media (prefers-reduced-motion: reduce) { .slide.alert, .key-icon { -webkit-animation: none; animation: none; } }
 </style>
 </head>
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-09T05:52:00+01:00",
+  "actualizado": "2026-11-09T05:58:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-09",
@@ -410,9 +423,30 @@ table.board.dense { border-spacing: 0 .7vmin; }
     slides.push(s);
   }
 
+  // Recordatorio de los lunes (según el día que marca la TV)
+  var isMonday = now.getDay() === 1;
+  function reminderSlide() {
+    var s = el('section', 'slide alert');
+    var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.setAttribute('viewBox', '0 0 64 64'); icon.setAttribute('class', 'key-icon'); icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = '<circle cx="20" cy="22" r="14" fill="#ffffff"/><circle cx="20" cy="22" r="6" fill="#5a287e"/>' +
+      '<rect x="30" y="18.5" width="29" height="7" rx="2" fill="#ffffff"/><rect x="46" y="25" width="5" height="10" rx="1" fill="#ffffff"/>' +
+      '<rect x="53" y="25" width="5" height="7" rx="1" fill="#ffffff"/>';
+    s.appendChild(icon);
+    s.appendChild(el('div', 'alert-tag', 'Recordatorio de los lunes'));
+    var h = el('h1', 'alert-msg');
+    h.appendChild(document.createTextNode('Recordar coger '));
+    h.appendChild(el('mark', null, 'las llaves'));
+    h.appendChild(document.createTextNode(' de las rutas'));
+    s.appendChild(h);
+    return s;
+  }
+  if (isMonday) slides.push(reminderSlide());
+
   // Hoy: resumen, una ficha por transportista y ausencias. Mañana: resumen y ausencias.
   dias.forEach(function (d) {
     var isToday = dayKey(parseDate(d.fecha)) === todayKey;
+    if (isMonday && !isToday && slides.length > 3) slides.push(reminderSlide()); // se repite antes de mañana
     summarySlide(d);
     if (isToday || dias.length === 1) driverSlides(d);
     absenceSlide(d);
