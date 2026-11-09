@@ -113,8 +113,64 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-09T05:11:10+01:00",
+  "actualizado": "2026-11-09T05:45:00+01:00",
   "dias": [
+    {
+      "fecha": "2026-11-09",
+      "transportistas": [
+        {
+          "nombre": "Vicente Cumba",
+          "tareas": [
+            {
+              "texto": "R1 ruta 13",
+              "codigo": "070131"
+            },
+            {
+              "texto": "R3 ruta 13",
+              "codigo": "070133"
+            },
+            {
+              "texto": "Valija noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez",
+          "tareas": [
+            {
+              "texto": "R2 ruta 24",
+              "codigo": "070242"
+            },
+            {
+              "texto": "Guardia noche",
+              "codigo": "070025"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "Valija 1"
+            },
+            {
+              "texto": "R4 ruta 24",
+              "codigo": "070244"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "R4 ruta 9",
+              "codigo": "070094"
+            }
+          ]
+        }
+      ],
+      "ausencias": []
+    },
     {
       "fecha": "2026-11-10",
       "transportistas": [
@@ -354,11 +410,11 @@ table.board.dense { border-spacing: 0 .7vmin; }
     slides.push(s);
   }
 
-  // Cada día: resumen, una ficha por transportista y ausencias.
+  // Hoy: resumen, una ficha por transportista y ausencias. Mañana: resumen y ausencias.
   dias.forEach(function (d) {
     var isToday = dayKey(parseDate(d.fecha)) === todayKey;
     summarySlide(d);
-    driverSlides(d);
+    if (isToday || dias.length === 1) driverSlides(d);
     absenceSlide(d);
   });
   if (!slides.length) {
