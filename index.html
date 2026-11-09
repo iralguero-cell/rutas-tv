@@ -126,7 +126,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-09T05:58:00+01:00",
+  "actualizado": "2026-11-09T10:08:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-09",
@@ -423,8 +423,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
     slides.push(s);
   }
 
-  // Recordatorio de los lunes (según el día que marca la TV)
-  var isMonday = now.getDay() === 1;
+  // Recordatorio de los lunes: solo los lunes hasta las 9:00 (según la hora de la TV)
+  var isMonday = now.getDay() === 1 && now.getHours() < 9;
   function reminderSlide() {
     var s = el('section', 'slide alert');
     var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -549,6 +549,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
   function clock() {
     var n = new Date();
     if (dayKey(n) !== loadedKey) { location.reload(); return; } // cambio de día: recalcula Hoy/Mañana
+    if (isMonday && n.getHours() >= 9) { location.reload(); return; } // a las 9:00 se quita el recordatorio
     clockEl.textContent = n.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     dateEl.textContent = cap(fmtLong.format(n));
     metaEl.textContent = '';
