@@ -461,17 +461,38 @@ table.board.dense { border-spacing: 0 .7vmin; }
   document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.keyCode === 39) { go(idx + 1); e.preventDefault(); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.keyCode === 37) { go(idx - 1); e.preventDefault(); }
-    else if ((e.key === 'Enter' || e.key === ' ' || e.keyCode === 13) && document.activeElement === document.body) { togglePause(); e.preventDefault(); }
+    else if (e.key === ' ' && document.activeElement === document.body) { togglePause(); e.preventDefault(); }
   });
 
-  // Pantalla completa (opcional)
-  document.getElementById('fs').addEventListener('click', function () {
-    var d = document.documentElement;
-    try {
-      var p = document.fullscreenElement ? document.exitFullscreen() : (d.requestFullscreen ? d.requestFullscreen() : null);
-      if (p && p.catch) p.catch(function () {});
-    } catch (err) {}
-  });
+  // Pantalla completa: API estándar y versiones con prefijo (navegadores de TV antiguos)
+  var fsBtn = document.getElementById('fs');
+  var root = document.documentElement;
+  var reqFs = root.requestFullscreen || root.webkitRequestFullscreen || root.webkitRequestFullScreen || root.mozRequestFullScreen || root.msRequestFullscreen;
+  var exitFs = document.exitFullscreen || document.webkitExitFullscreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || document.msExitFullscreen;
+  function isFs() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.webkitCurrentFullScreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+  }
+  function enterFs() {
+    if (!reqFs || isFs()) return;
+    try { var r = reqFs.call(root); if (r && r.catch) r.catch(function () {}); } catch (err) {}
+  }
+  function leaveFs() {
+    if (!exitFs || !isFs()) return;
+    try { var r = exitFs.call(document); if (r && r.catch) r.catch(function () {}); } catch (err) {}
+  }
+  function syncFsBtn() { fsBtn.textContent = isFs() ? 'Salir de pantalla completa' : 'Pantalla completa'; }
+  if (!reqFs) {
+    fsBtn.hidden = true; // este navegador no permite pantalla completa desde la página
+  } else {
+    fsBtn.addEventListener('click', function (e) { e.stopPropagation(); if (isFs()) leaveFs(); else enterFs(); });
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(function (ev) {
+      document.addEventListener(ev, syncFsBtn);
+    });
+    // Con el mando: la primera pulsación de cualquier tecla o clic activa la pantalla completa
+    var firstTouch = function () { enterFs(); };
+    document.addEventListener('keydown', firstTouch);
+    document.addEventListener('click', firstTouch);
+  }
 
   // Mantener la pantalla encendida si el navegador lo permite
   function wake() {
