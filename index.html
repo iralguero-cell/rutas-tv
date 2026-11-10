@@ -121,12 +121,23 @@ table.board.dense { border-spacing: 0 .7vmin; }
 @-webkit-keyframes alertPulse { 0% { box-shadow: 0 0 0 0 rgba(185, 154, 214, .75); } 70% { box-shadow: 0 0 0 3vmin rgba(185, 154, 214, 0); } 100% { box-shadow: 0 0 0 0 rgba(185, 154, 214, 0); } }
 @keyframes alertPulse { 0% { box-shadow: 0 0 0 0 rgba(185, 154, 214, .75); } 70% { box-shadow: 0 0 0 3vmin rgba(185, 154, 214, 0); } 100% { box-shadow: 0 0 0 0 rgba(185, 154, 214, 0); } }
 @media (prefers-reduced-motion: reduce) { .slide.alert, .key-icon { -webkit-animation: none; animation: none; } }
+
+/* Avisos de rutas */
+.news-list > * + * { margin-top: 2.4vmin; }
+.news-card { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; background: #ffffff; color: #1e1e1c; border-radius: 1.4vmin; padding: 3vmin 3.6vmin; border-left: 1.4vmin solid #5a287e; }
+.news-ico { -webkit-flex: none; flex: none; width: 11vmin; height: 11vmin; line-height: 11vmin; margin-right: 3.6vmin; border-radius: 50%; background: #5a287e; color: #ffffff; text-align: center; font-weight: 900; font-size: 7.5vmin; font-style: italic; -webkit-animation: newsBlink 1.8s ease-in-out infinite; animation: newsBlink 1.8s ease-in-out infinite; }
+.news-body { min-width: 0; }
+.news-route { display: inline-block; background: #5a287e; color: #ffffff; font-weight: 800; font-size: 3vmin; letter-spacing: .06em; text-transform: uppercase; padding: .5vmin 1.8vmin; border-radius: .7vmin; margin-bottom: 1.4vmin; }
+.news-text { margin: 0; font-weight: 800; font-size: 5.6vmin; line-height: 1.12; }
+@-webkit-keyframes newsBlink { 0%, 100% { -webkit-transform: scale(1); } 50% { -webkit-transform: scale(1.08); } }
+@keyframes newsBlink { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@media (prefers-reduced-motion: reduce) { .news-ico { -webkit-animation: none; animation: none; } }
 </style>
 </head>
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-10T08:01:00+01:00",
+  "actualizado": "2026-11-10T08:12:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-10",
@@ -176,7 +187,10 @@ table.board.dense { border-spacing: 0 .7vmin; }
           ]
         }
       ],
-      "ausencias": []
+      "ausencias": [],
+      "avisos": [
+        "Farmacia Carmina Olucha Piñon (Ruta 10) permanecerá cerrada todo el día"
+      ]
     },
     {
       "fecha": "2026-11-11",
@@ -226,7 +240,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           ]
         }
       ],
-      "ausencias": []
+      "ausencias": [],
+      "avisos": []
     },
     {
       "fecha": "2026-11-12",
@@ -296,7 +311,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-12",
           "hasta": "2026-11-17"
         }
-      ]
+      ],
+      "avisos": []
     },
     {
       "fecha": "2026-11-13",
@@ -373,7 +389,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-13",
           "hasta": "2026-11-13"
         }
-      ]
+      ],
+      "avisos": []
     },
     {
       "fecha": "2026-11-14",
@@ -457,7 +474,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-14",
           "hasta": "2026-11-14"
         }
-      ]
+      ],
+      "avisos": []
     },
     {
       "fecha": "2026-11-15",
@@ -502,7 +520,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-15",
           "hasta": "2026-11-15"
         }
-      ]
+      ],
+      "avisos": []
     }
   ]
 }
@@ -604,7 +623,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
   function summarySlide(d) {
     var s = el('section', 'slide');
     head(s, d, 'Resumen');
-    s.appendChild(el('h1', null, 'Qué hace cada reserva'));
+    s.appendChild(el('h1', null, 'Asignación de rutas para los backup'));
     if (!d.transportistas.length) {
       s.appendChild(el('p', 'empty-note', 'No hay rutas asignadas en el calendario para este día.'));
       slides.push(s); return;
@@ -696,6 +715,33 @@ table.board.dense { border-spacing: 0 .7vmin; }
     slides.push(s);
   }
 
+  // Avisos de rutas del día (solo si hay alguno)
+  function newsSlide(d) {
+    if (!d.avisos || !d.avisos.length) return;
+    var s = el('section', 'slide news');
+    head(s, d, 'Avisos');
+    s.appendChild(el('h1', null, 'Avisos de rutas'));
+    var list = el('div', 'news-list');
+    d.avisos.forEach(function (a) {
+      var txt = (typeof a === 'string') ? a : (a.texto || '');
+      var m = /\(\s*(ruta[^)]*)\)/i.exec(txt);
+      var card = el('article', 'news-card');
+      var ico = el('span', 'news-ico', '!');
+      ico.setAttribute('aria-hidden', 'true');
+      card.appendChild(ico);
+      var body = el('div', 'news-body');
+      if (m) {
+        body.appendChild(el('span', 'news-route', cap(m[1].trim())));
+        txt = (txt.slice(0, m.index) + txt.slice(m.index + m[0].length)).replace(/\s{2,}/g, ' ').trim();
+      }
+      body.appendChild(el('p', 'news-text', txt));
+      card.appendChild(body);
+      list.appendChild(card);
+    });
+    s.appendChild(list);
+    slides.push(s);
+  }
+
   // Recordatorio de los lunes: solo los lunes hasta las 9:00 (según la hora de la TV)
   var isMonday = now.getDay() === 1 && now.getHours() < 9;
   function reminderSlide() {
@@ -716,11 +762,12 @@ table.board.dense { border-spacing: 0 .7vmin; }
   }
   if (isMonday) slides.push(reminderSlide());
 
-  // Cada día, de hoy al domingo: resumen de los reservas y quién falta
+  // Cada día, de hoy al domingo: asignación de los backup, avisos (si hay) y quién falta (si falta alguien)
   var repeated = false;
   dias.forEach(function (d, i) {
     if (isMonday && !repeated && i === Math.ceil(dias.length / 2)) { slides.push(reminderSlide()); repeated = true; } // se repite a mitad de vuelta
     summarySlide(d);
+    newsSlide(d);
     absenceSlide(d);
   });
   if (!slides.length) {
