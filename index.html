@@ -126,7 +126,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-10T05:11:34+01:00",
+  "actualizado": "2026-11-10T07:57:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-10",
@@ -261,6 +261,14 @@ table.board.dense { border-spacing: 0 .7vmin; }
 (function () {
   var SECONDS = 10;
   var data = JSON.parse(document.getElementById('rutas-data').textContent);
+
+  // Nombres tal como se quieren ver en pantalla (el calendario puede escribirlos de otra forma)
+  var NOMBRES = { 'Vicente Cumba': 'Viçenç Cumba' };
+  function fixName(n) { return NOMBRES.hasOwnProperty(n) ? NOMBRES[n] : n; }
+  (data.dias || []).forEach(function (d) {
+    (d.transportistas || []).forEach(function (t) { t.nombre = fixName(t.nombre); });
+    (d.ausencias || []).forEach(function (a) { a.nombre = fixName(a.nombre); });
+  });
   var slidesEl = document.getElementById('slides');
   var dotsEl = document.getElementById('dots');
   var bar = document.getElementById('bar');
