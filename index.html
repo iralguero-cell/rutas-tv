@@ -126,7 +126,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-10T08:10:00+01:00",
+  "actualizado": "2026-11-10T08:01:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-10",
@@ -674,13 +674,10 @@ table.board.dense { border-spacing: 0 .7vmin; }
   }
 
   function absenceSlide(d) {
+    if (!d.ausencias || !d.ausencias.length) return; // si no falta nadie, no hay diapositiva
     var s = el('section', 'slide');
     head(s, d, 'Ausencias');
     s.appendChild(el('h1', null, 'Quién falta'));
-    if (!d.ausencias || !d.ausencias.length) {
-      s.appendChild(el('p', 'empty-note', 'No falta nadie este día.'));
-      slides.push(s); return;
-    }
     var grid = el('div', 'absences');
     d.ausencias.forEach(function (a) {
       var c = el('article', 'absence');
