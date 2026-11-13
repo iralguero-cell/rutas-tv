@@ -137,7 +137,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-13T05:40:00+01:00",
+  "actualizado": "2026-11-13T05:42:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-13",
@@ -200,7 +200,10 @@ table.board.dense { border-spacing: 0 .7vmin; }
         }
       ],
       "avisos": [
-        "Hoy la farmacia Canos Peirats (Ruta 22) permanecerá cerrada por la mañana. Pedidos para el R3"
+        {
+          "texto": "Hoy la farmacia Canos Peirats (Ruta 22) permanecerá cerrada por la mañana. Pedidos para el R3",
+          "hasta": "07:30"
+        }
       ],
       "ausencias": [
         {
@@ -552,13 +555,25 @@ table.board.dense { border-spacing: 0 .7vmin; }
   }
 
   // Avisos de rutas del día (solo si hay alguno)
+  // Un aviso puede ser un texto o {texto, hasta: "HH:MM"}; a partir de esa hora (del día del aviso) deja de mostrarse
+  var expiries = [];
+  function hhmm(dt) { return ('0' + dt.getHours()).slice(-2) + ':' + ('0' + dt.getMinutes()).slice(-2); }
+  function avisoActivo(d, a) {
+    if (typeof a === 'string' || !a.hasta) return true;
+    var k = dayKey(parseDate(d.fecha));
+    if (k > todayKey) return true;
+    if (hhmm(now) >= a.hasta) return false;
+    expiries.push(a.hasta);
+    return true;
+  }
   function newsSlide(d) {
-    if (!d.avisos || !d.avisos.length) return;
+    var avisos = (d.avisos || []).filter(function (a) { return avisoActivo(d, a); });
+    if (!avisos.length) return;
     var s = el('section', 'slide news');
     head(s, d, 'Avisos');
     s.appendChild(el('h1', null, 'Avisos de rutas'));
     var list = el('div', 'news-list');
-    d.avisos.forEach(function (a) {
+    avisos.forEach(function (a) {
       var txt = (typeof a === 'string') ? a : (a.texto || '');
       var m = /\(\s*(ruta[^)]*)\)/i.exec(txt);
       var card = el('article', 'news-card');
@@ -705,6 +720,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
     var n = new Date();
     if (dayKey(n) !== loadedKey) { location.reload(); return; } // cambio de día: recalcula Hoy/Mañana
     if (isMonday && n.getHours() >= 9) { location.reload(); return; } // a las 9:00 se quita el recordatorio
+    if (expiries.some(function (h) { return hhmm(n) >= h; })) { location.reload(); return; } // un aviso ha caducado
     clockEl.textContent = n.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     dateEl.textContent = cap(fmtLong.format(n));
     metaEl.textContent = '';

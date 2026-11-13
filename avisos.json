@@ -1,5 +1,8 @@
 {
   "2026-11-13": [
-    "Hoy la farmacia Canos Peirats (Ruta 22) permanecerá cerrada por la mañana. Pedidos para el R3"
+    {
+      "texto": "Hoy la farmacia Canos Peirats (Ruta 22) permanecerá cerrada por la mañana. Pedidos para el R3",
+      "hasta": "07:30"
+    }
   ]
 }
