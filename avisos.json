@@ -1,8 +1,13 @@
 {
-  "2026-11-13": [
+  "2026-11-18": [
     {
-      "texto": "Hoy la farmacia Canos Peirats (Ruta 22) permanecerá cerrada por la mañana. Pedidos para el R3",
-      "hasta": "07:30"
+      "etiqueta": "Formación",
+      "texto": "Recordar que hoy hay curso de BPDs",
+      "detalles": [
+        "Primer turno: 10:30 a 11:00",
+        "Segundo turno: 13:00 a 13:30",
+        "Lugar: Sala de formación"
+      ]
     }
   ]
 }

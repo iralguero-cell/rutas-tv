@@ -132,12 +132,18 @@ table.board.dense { border-spacing: 0 .7vmin; }
 @-webkit-keyframes newsBlink { 0%, 100% { -webkit-transform: scale(1); } 50% { -webkit-transform: scale(1.08); } }
 @keyframes newsBlink { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 @media (prefers-reduced-motion: reduce) { .news-ico { -webkit-animation: none; animation: none; } }
+
+/* Detalles de un aviso (turnos, lugar…) */
+.news-details { list-style: none; margin: 2.2vmin 0 0; padding: 0; }
+.news-details li { display: -webkit-flex; display: flex; -webkit-align-items: baseline; align-items: baseline; padding: 1.1vmin 0; border-top: 2px solid #ece6f2; }
+.nd-label { -webkit-flex: none; flex: none; width: 38vmin; padding-right: 2vmin; font-weight: 700; font-size: 3vmin; text-transform: uppercase; letter-spacing: .08em; color: #5a287e; }
+.nd-value { font-weight: 800; font-size: 4.6vmin; color: #1e1e1c; }
 </style>
 </head>
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-18T05:11:27+01:00",
+  "actualizado": "2026-11-18T06:22:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-18",
@@ -187,7 +193,17 @@ table.board.dense { border-spacing: 0 .7vmin; }
           ]
         }
       ],
-      "avisos": [],
+      "avisos": [
+        {
+          "etiqueta": "Formación",
+          "texto": "Recordar que hoy hay curso de BPDs",
+          "detalles": [
+            "Primer turno: 10:30 a 11:00",
+            "Segundo turno: 13:00 a 13:30",
+            "Lugar: Sala de formación"
+          ]
+        }
+      ],
       "ausencias": []
     },
     {
@@ -682,8 +698,26 @@ table.board.dense { border-spacing: 0 .7vmin; }
       if (m) {
         body.appendChild(el('span', 'news-route', cap(m[1].trim())));
         txt = (txt.slice(0, m.index) + txt.slice(m.index + m[0].length)).replace(/\s{2,}/g, ' ').trim();
+      } else if (a.etiqueta) {
+        body.appendChild(el('span', 'news-route', a.etiqueta));
       }
       body.appendChild(el('p', 'news-text', txt));
+      // Detalles opcionales: líneas "Etiqueta: valor"
+      if (a.detalles && a.detalles.length) {
+        var ul = el('ul', 'news-details');
+        a.detalles.forEach(function (line) {
+          var li = el('li');
+          var i = line.indexOf(':');
+          if (i > 0) {
+            li.appendChild(el('span', 'nd-label', line.slice(0, i).trim()));
+            li.appendChild(el('span', 'nd-value', line.slice(i + 1).trim()));
+          } else {
+            li.appendChild(el('span', 'nd-value', line));
+          }
+          ul.appendChild(li);
+        });
+        body.appendChild(ul);
+      }
       card.appendChild(body);
       list.appendChild(card);
     });
