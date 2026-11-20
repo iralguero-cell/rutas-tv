@@ -138,12 +138,21 @@ table.board.dense { border-spacing: 0 .7vmin; }
 .news-details li { display: -webkit-flex; display: flex; -webkit-align-items: baseline; align-items: baseline; padding: 1.1vmin 0; border-top: 2px solid #ece6f2; }
 .nd-label { -webkit-flex: none; flex: none; width: 38vmin; padding-right: 2vmin; font-weight: 700; font-size: 3vmin; text-transform: uppercase; letter-spacing: .08em; color: #5a287e; }
 .nd-value { font-weight: 800; font-size: 4.6vmin; color: #1e1e1c; }
+
+/* Farmacias de guardia */
+.guard-list { -webkit-flex: 1; flex: 1; min-height: 0; }
+.guard-list > * + * { margin-top: 1.2vmin; }
+.guard-row { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; background: #232128; border: 1px solid #34303c; border-left: .7vmin solid #5a287e; border-radius: .8vmin; padding: 1.1vmin 2.2vmin; }
+.guard-town { -webkit-flex: none; flex: none; width: 36vmin; margin-right: 2.6vmin; font-weight: 900; font-style: italic; font-size: 3.2vmin; color: #b99ad6; text-transform: uppercase; letter-spacing: .02em; }
+.guard-info { min-width: 0; }
+.guard-name { font-weight: 800; font-size: 3.8vmin; line-height: 1.1; color: #f4f2f6; }
+.guard-addr { font-weight: 500; font-size: 2.6vmin; color: #a39dab; margin-top: .4vmin; }
 </style>
 </head>
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-20T05:01:05+01:00",
+  "actualizado": "2026-11-20T09:40:00+01:00",
   "dias": [
     {
       "fecha": "2026-11-20",
@@ -234,6 +243,33 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-20",
           "hasta": "2026-11-20"
         }
+      ],
+      "guardias": [
+        {
+          "poblacion": "Almazora",
+          "farmacia": "GASCO MOLINER, SAMUEL",
+          "direccion": "Calle TRINIDAD, Nº 25"
+        },
+        {
+          "poblacion": "Villarreal",
+          "farmacia": "FONT DE MORA GOZALBO, Mª JOSE",
+          "direccion": "Calle ERMITA, Nº 213"
+        },
+        {
+          "poblacion": "Burriana",
+          "farmacia": "MEDINA BADENES, BEGOÑA",
+          "direccion": "Calle FINELLO, Nº 15"
+        },
+        {
+          "poblacion": "Castellón",
+          "farmacia": "CASTILLO GARCIA, ENCARNACION",
+          "direccion": "AVENIDA PEREZ GALDOS, Nº 9"
+        },
+        {
+          "poblacion": "Grao de Castellón",
+          "farmacia": "CALACEIT PASTOR, AARON",
+          "direccion": "Calle GRAVINA, Nº 25"
+        }
       ]
     },
     {
@@ -319,7 +355,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-21",
           "hasta": "2026-11-21"
         }
-      ]
+      ],
+      "guardias": []
     },
     {
       "fecha": "2026-11-22",
@@ -358,7 +395,8 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "desde": "2026-11-22",
           "hasta": "2026-11-22"
         }
-      ]
+      ],
+      "guardias": []
     }
   ]
 }
@@ -609,6 +647,27 @@ table.board.dense { border-spacing: 0 .7vmin; }
     slides.push(s);
   }
 
+  // Farmacias de guardia del día en curso (solo hoy y solo si hay datos)
+  function guardiaSlide(d) {
+    if (dayKey(parseDate(d.fecha)) !== todayKey) return;
+    if (!d.guardias || !d.guardias.length) return;
+    var s = el('section', 'slide');
+    head(s, d, 'Guardias');
+    s.appendChild(el('h1', null, 'Farmacias de guardia'));
+    var list = el('div', 'guard-list');
+    d.guardias.forEach(function (g) {
+      var row = el('div', 'guard-row');
+      row.appendChild(el('span', 'guard-town', g.poblacion));
+      var info = el('div', 'guard-info');
+      info.appendChild(el('div', 'guard-name', g.farmacia));
+      if (g.direccion) info.appendChild(el('div', 'guard-addr', g.direccion));
+      row.appendChild(info);
+      list.appendChild(row);
+    });
+    s.appendChild(list);
+    slides.push(s);
+  }
+
   // Recordatorio de los lunes: solo los lunes hasta las 9:00 (según la hora de la TV)
   var isMonday = now.getDay() === 1 && now.getHours() < 9;
   function reminderSlide() {
@@ -636,6 +695,7 @@ table.board.dense { border-spacing: 0 .7vmin; }
     summarySlide(d);
     newsSlide(d);
     absenceSlide(d);
+    guardiaSlide(d);
   });
   if (!slides.length) {
     var s0 = el('section', 'slide');
