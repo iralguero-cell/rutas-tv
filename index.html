@@ -141,18 +141,18 @@ table.board.dense { border-spacing: 0 .7vmin; }
 
 /* Farmacias de guardia */
 .guard-list { -webkit-flex: 1; flex: 1; min-height: 0; }
-.guard-list > * + * { margin-top: 1.2vmin; }
-.guard-row { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; background: #232128; border: 1px solid #34303c; border-left: .7vmin solid #5a287e; border-radius: .8vmin; padding: 1.1vmin 2.2vmin; }
+.guard-list > * + * { margin-top: .9vmin; }
+.guard-row { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; background: #232128; border: 1px solid #34303c; border-left: .7vmin solid #5a287e; border-radius: .8vmin; padding: .9vmin 2.2vmin; }
 .guard-town { -webkit-flex: none; flex: none; width: 36vmin; margin-right: 2.6vmin; font-weight: 900; font-style: italic; font-size: 3.2vmin; color: #b99ad6; text-transform: uppercase; letter-spacing: .02em; }
 .guard-info { min-width: 0; }
-.guard-name { font-weight: 800; font-size: 3.8vmin; line-height: 1.1; color: #f4f2f6; }
+.guard-name { font-weight: 800; font-size: 3.5vmin; line-height: 1.1; color: #f4f2f6; }
 .guard-addr { font-weight: 500; font-size: 2.6vmin; color: #a39dab; margin-top: .4vmin; }
 </style>
 </head>
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-20T09:40:00+01:00",
+  "actualizado": "2026-11-20T09:40:30+01:00",
   "dias": [
     {
       "fecha": "2026-11-20",
@@ -648,14 +648,37 @@ table.board.dense { border-spacing: 0 .7vmin; }
   }
 
   // Farmacias de guardia del día en curso (solo hoy y solo si hay datos)
+  // Farmacias que se muestran siempre, todos los días, además de las de la hoja de guardias
+  var GUARDIAS_FIJAS = [
+    { poblacion: 'Castellón', farmacia: 'BALLESTER BADENES', direccion: 'Calle SAN FELIX, Nº 75' }
+  ];
+  var ORDEN_POBL = ['Almazora', 'Villarreal', 'Burriana', 'Castellón', 'Grao de Castellón'];
+  function conFijas(lista) {
+    var out = (lista || []).slice();
+    GUARDIAS_FIJAS.forEach(function (f) {
+      var ya = out.some(function (g) { return g.poblacion === f.poblacion && g.farmacia === f.farmacia; });
+      if (ya) return;
+      // va detrás de las de su misma población; si no hay, en su sitio según el orden de poblaciones
+      var pos = -1;
+      out.forEach(function (g, i) { if (g.poblacion === f.poblacion) pos = i; });
+      if (pos < 0) {
+        var rank = ORDEN_POBL.indexOf(f.poblacion);
+        pos = out.length - 1;
+        for (var i = 0; i < out.length; i++) { if (ORDEN_POBL.indexOf(out[i].poblacion) > rank) { pos = i - 1; break; } }
+      }
+      out.splice(pos + 1, 0, f);
+    });
+    return out;
+  }
   function guardiaSlide(d) {
     if (dayKey(parseDate(d.fecha)) !== todayKey) return;
-    if (!d.guardias || !d.guardias.length) return;
+    var lista = conFijas(d.guardias);
+    if (!lista.length) return;
     var s = el('section', 'slide');
     head(s, d, 'Guardias');
     s.appendChild(el('h1', null, 'Farmacias de guardia'));
     var list = el('div', 'guard-list');
-    d.guardias.forEach(function (g) {
+    lista.forEach(function (g) {
       var row = el('div', 'guard-row');
       row.appendChild(el('span', 'guard-town', g.poblacion));
       var info = el('div', 'guard-info');
