@@ -152,16 +152,39 @@ table.board.dense { border-spacing: 0 .7vmin; }
 <body>
 <script id="rutas-data" type="application/json">
 {
-  "actualizado": "2026-11-22T05:01:09+01:00",
+  "actualizado": "2026-11-23T05:01:36+01:00",
   "dias": [
     {
-      "fecha": "2026-11-22",
+      "fecha": "2026-11-23",
       "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "R2 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 9"
+            },
+            {
+              "texto": "Valija noche"
+            }
+          ]
+        },
         {
           "nombre": "Sergio Gonzalez",
           "tareas": [
             {
-              "texto": "Ruta Sur"
+              "texto": "R1 ruta 22"
+            },
+            {
+              "texto": "R2 ruta 24"
+            },
+            {
+              "texto": "R3 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 24"
             }
           ]
         },
@@ -169,7 +192,13 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "nombre": "Andrei Matei",
           "tareas": [
             {
-              "texto": "Refuerzo"
+              "texto": "R1 ruta 8"
+            },
+            {
+              "texto": "Valija 1"
+            },
+            {
+              "texto": "R4 ruta 8"
             }
           ]
         },
@@ -177,7 +206,13 @@ table.board.dense { border-spacing: 0 .7vmin; }
           "nombre": "Adrian Gabriel",
           "tareas": [
             {
-              "texto": "Ruta Norte"
+              "texto": "R1 ruta 13"
+            },
+            {
+              "texto": "R3 ruta 13"
+            },
+            {
+              "texto": "Guardia noche"
             }
           ]
         }
@@ -185,30 +220,487 @@ table.board.dense { border-spacing: 0 .7vmin; }
       "avisos": [],
       "ausencias": [
         {
-          "nombre": "Viçenç Cumba",
-          "tipo": "Descanso",
-          "detalle": "",
-          "desde": "2026-11-22",
-          "hasta": "2026-11-22"
+          "nombre": "Sergio Alfaro",
+          "tipo": "Libra",
+          "detalle": "Ruta 8",
+          "desde": "2026-11-23",
+          "hasta": "2026-11-27"
+        },
+        {
+          "nombre": "Aitor Gimenez",
+          "tipo": "Libra",
+          "detalle": "R1 ruta 22",
+          "desde": "2026-11-23",
+          "hasta": "2026-11-23"
         }
       ],
       "guardias": [
         {
           "poblacion": "Almazora",
-          "farmacia": "MALLOL ESCURA, BERTA Mª",
-          "direccion": "Calle JESUS Y MARIA, Nº 143"
+          "farmacia": "CLAUSELL FARMACEUTICOS, C.B.",
+          "direccion": "Calle SAN PASCUAL, Nº 11 - 13"
+        },
+        {
+          "poblacion": "Villarreal",
+          "farmacia": "ESPEL ROYO, GUSTAVO",
+          "direccion": "Calle COMTE ALBAY, Nº 13"
+        },
+        {
+          "poblacion": "Burriana",
+          "farmacia": "PEIRATS SANTA AGUEDA, JOSE",
+          "direccion": "Calle LA TANDA, Nº 22"
         },
         {
           "poblacion": "Castellón",
-          "farmacia": "BELTRAN HERNANDEZ, JAUME",
-          "direccion": "Calle BOTANICO CAVANILLES, Nº 20"
+          "farmacia": "SOLER PEREZ FARMACEUTICOS C.B.",
+          "direccion": "AVENIDA DEL MAR, Nº 12"
+        },
+        {
+          "poblacion": "Castellón",
+          "farmacia": "FARMACIA SIMARRO GUMBAU CB",
+          "direccion": "Calle BARTOLOME REUS, Nº 50"
         },
         {
           "poblacion": "Grao de Castellón",
-          "farmacia": "ANSUATEGUI ROCA, MANUEL",
-          "direccion": "AVENIDA FERRANDIS SALVADOR, Nº 58"
+          "farmacia": "MATUTANO FERNANDEZ, GUILLERMINA",
+          "direccion": "Calle CHURRUCA, Nº 14"
         }
       ]
+    },
+    {
+      "fecha": "2026-11-24",
+      "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "R2 ruta 8"
+            },
+            {
+              "texto": "R3 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 8"
+            }
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez",
+          "tareas": [
+            {
+              "texto": "Valija 1"
+            },
+            {
+              "texto": "R4 ruta 9"
+            },
+            {
+              "texto": "Guardia noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "R1 ruta 8"
+            },
+            {
+              "texto": "R2 ruta 24"
+            },
+            {
+              "texto": "R4 ruta 24"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "R1 ruta 13"
+            },
+            {
+              "texto": "R3 ruta 13"
+            },
+            {
+              "texto": "Valija noche"
+            }
+          ]
+        }
+      ],
+      "avisos": [],
+      "ausencias": [
+        {
+          "nombre": "Sergio Alfaro",
+          "tipo": "Libra",
+          "detalle": "Ruta 8",
+          "desde": "2026-11-23",
+          "hasta": "2026-11-27"
+        }
+      ],
+      "guardias": []
+    },
+    {
+      "fecha": "2026-11-25",
+      "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "R2 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 8"
+            },
+            {
+              "texto": "Valija noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez",
+          "tareas": [
+            {
+              "texto": "R1 ruta 8"
+            },
+            {
+              "texto": "R2 ruta 24"
+            },
+            {
+              "texto": "R4 ruta 24"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "R1 ruta 13"
+            },
+            {
+              "texto": "R3 ruta 13"
+            },
+            {
+              "texto": "Guardia noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "Valija 1"
+            },
+            {
+              "texto": "R3 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 9"
+            }
+          ]
+        }
+      ],
+      "avisos": [],
+      "ausencias": [
+        {
+          "nombre": "Sergio Alfaro",
+          "tipo": "Libra",
+          "detalle": "Ruta 8",
+          "desde": "2026-11-23",
+          "hasta": "2026-11-27"
+        }
+      ],
+      "guardias": []
+    },
+    {
+      "fecha": "2026-11-26",
+      "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "Valija 1"
+            },
+            {
+              "texto": "R4 ruta 8"
+            },
+            {
+              "texto": "Valija noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez",
+          "tareas": [
+            {
+              "texto": "R1 ruta 3"
+            },
+            {
+              "texto": "R2 ruta 24"
+            },
+            {
+              "texto": "R3 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 9"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "R1 ruta 8"
+            },
+            {
+              "texto": "R3 ruta 13"
+            },
+            {
+              "texto": "Guardia noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "R1 ruta 13"
+            },
+            {
+              "texto": "R2 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 24"
+            }
+          ]
+        }
+      ],
+      "avisos": [],
+      "ausencias": [
+        {
+          "nombre": "Sergio Alfaro",
+          "tipo": "Libra",
+          "detalle": "Ruta 8",
+          "desde": "2026-11-23",
+          "hasta": "2026-11-27"
+        },
+        {
+          "nombre": "Marius Iulian",
+          "tipo": "Libra",
+          "detalle": "R1 ruta 3",
+          "desde": "2026-11-26",
+          "hasta": "2026-11-26"
+        }
+      ],
+      "guardias": []
+    },
+    {
+      "fecha": "2026-11-27",
+      "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "R2 ruta 8"
+            },
+            {
+              "texto": "R3 ruta 8"
+            },
+            {
+              "texto": "R4 ruta 9"
+            }
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez",
+          "tareas": [
+            {
+              "texto": "R2 ruta 24"
+            },
+            {
+              "texto": "R4 ruta 8"
+            },
+            {
+              "texto": "Valija noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "R1 ruta 13"
+            },
+            {
+              "texto": "Valija 1"
+            },
+            {
+              "texto": "R4 ruta 24"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "R1 ruta 8"
+            },
+            {
+              "texto": "R3 ruta 13"
+            },
+            {
+              "texto": "Guardia noche"
+            }
+          ]
+        }
+      ],
+      "avisos": [],
+      "ausencias": [
+        {
+          "nombre": "Sergio Alfaro",
+          "tipo": "Libra",
+          "detalle": "Ruta 8",
+          "desde": "2026-11-23",
+          "hasta": "2026-11-27"
+        }
+      ],
+      "guardias": []
+    },
+    {
+      "fecha": "2026-11-28",
+      "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "R1 ruta 58"
+            },
+            {
+              "texto": "R2 ruta 58"
+            },
+            {
+              "texto": "R3 ruta 14"
+            }
+          ]
+        },
+        {
+          "nombre": "Sergio Gonzalez",
+          "tareas": [
+            {
+              "texto": "R1 ruta 13"
+            },
+            {
+              "texto": "R3 guardia tarde"
+            },
+            {
+              "texto": "R4 guardia tarde"
+            },
+            {
+              "texto": "Guardia noche"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "R1 ruta 10"
+            },
+            {
+              "texto": "R2 ruta 10"
+            },
+            {
+              "texto": "R3 ruta 10"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "R1 ruta 14"
+            },
+            {
+              "texto": "R3 ruta 9"
+            },
+            {
+              "texto": "R4 ruta 9"
+            }
+          ]
+        },
+        {
+          "nombre": "Ciprian Gabriel",
+          "tareas": [
+            {
+              "texto": "R1 ruta 17"
+            }
+          ]
+        }
+      ],
+      "avisos": [],
+      "ausencias": [
+        {
+          "nombre": "Sergio Alfaro",
+          "tipo": "Libra",
+          "detalle": "Ruta 58",
+          "desde": "2026-11-28",
+          "hasta": "2026-11-28"
+        },
+        {
+          "nombre": "Jose Manuel Rodríguez",
+          "tipo": "Libra",
+          "detalle": "Ruta 14",
+          "desde": "2026-11-28",
+          "hasta": "2026-11-28"
+        },
+        {
+          "nombre": "David",
+          "tipo": "Libra",
+          "detalle": "Ruta 070501 - 070502 - 070103",
+          "desde": "2026-11-28",
+          "hasta": "2026-11-28"
+        }
+      ],
+      "guardias": []
+    },
+    {
+      "fecha": "2026-11-29",
+      "transportistas": [
+        {
+          "nombre": "Viçenç Cumba",
+          "tareas": [
+            {
+              "texto": "Refuerzo"
+            }
+          ]
+        },
+        {
+          "nombre": "Andrei Matei",
+          "tareas": [
+            {
+              "texto": "Ruta Norte"
+            }
+          ]
+        },
+        {
+          "nombre": "Adrian Gabriel",
+          "tareas": [
+            {
+              "texto": "Ruta Sur"
+            }
+          ]
+        }
+      ],
+      "avisos": [],
+      "ausencias": [
+        {
+          "nombre": "Sergio Gonzalez",
+          "tipo": "Descanso",
+          "detalle": "",
+          "desde": "2026-11-29",
+          "hasta": "2026-11-29"
+        }
+      ],
+      "guardias": []
     }
   ]
 }
